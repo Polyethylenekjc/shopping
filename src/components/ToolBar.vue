@@ -13,6 +13,7 @@
           alt="Element logo"
         />
       </el-menu-item>
+      <el-menu-item index="shoppingCar">购物车</el-menu-item>
       <el-menu-item index="/shopping" >购物</el-menu-item>
       <el-menu-item index="login">注册登录</el-menu-item>
       <el-sub-menu index="User">
@@ -37,6 +38,12 @@
     if (key == "/shopping") {
       router.push({
         name : 'shopping',
+        replace: true,
+      })
+    }
+    if (key == "shoppingCar") {
+      router.push({
+        name : 'shoppingCar',
         replace: true,
       })
     }
