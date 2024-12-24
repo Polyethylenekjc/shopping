@@ -48,6 +48,11 @@ const router = createRouter({
     {
       path : '/',
       redirect: '/shoppingApi',
+    },
+    {
+      path: '/shoppingCar',
+      name: 'shoppingCar',
+      component: () => import('@/components/shoppingCar.vue'),
     }
   ],
 })
