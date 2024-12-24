@@ -82,7 +82,7 @@
                   <img :src="item.pic" class="image" style="height: 240px;width: 240px;"/>
                   <template #footer>
                     {{ item.price }}元<br>
-                    <el-input-number class="number" v-model="item.number" size="small" :min="0"/>
+                    <el-input-number class="number" v-model="car.car[item.id]" size="small" :min="0"/>
                   </template>
                 </el-card>
               </el-col>
@@ -95,13 +95,39 @@
   </template>
   
   <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, onBeforeMount } from 'vue'
   import { shoppingdata } from '@/assets/shoppingdata'
   import { Search } from '@element-plus/icons-vue'
+  import { shoppingCar } from '../assets/shoppingCar'
+  import { useCookies } from 'vue3-cookies';
 
+  const { cookies } = useCookies();
+
+  const car = ref()
   let data = ref(shoppingdata.value)
   const input = ref('')
   
+  function createShoppingCar(){
+    console.log("createShoppingCar")
+    for(let i = 0; i < shoppingCar.value.length; i++){
+      if(shoppingCar.value[i].name == cookies.get('user')){
+        car.value = shoppingCar.value[i]
+        return
+      }
+    }
+    car.value = {
+        "name": cookies.get('user'),
+        "car": new Array(data.value.length).fill(0)
+    }
+    console.log(car.value)
+    shoppingCar.value.push(car.value)
+  }
+
+  onBeforeMount(() => {
+    createShoppingCar()
+    console.log(shoppingCar.value)
+  })
+
   function myfilter(value, key){
     for(let i = 0; i < key.length; i++){
       console.log(value, key[i])
