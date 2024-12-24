@@ -70,6 +70,7 @@
             placeholder="Please Input"
             :suffix-icon="Search"
             class = "search"
+            @keyup.enter="searchGoods()"
           />
         </el-header>
   
@@ -82,7 +83,7 @@
                   <img :src="item.pic" class="image" style="height: 240px;width: 240px;"/>
                   <template #footer>
                     {{ item.price }}元<br>
-                    <el-input-number class="number" v-model="car.car[item.id]" size="small" :min="0"/>
+                    <el-input-number class="number" v-model="num[item.name]" size="small" :min="0" placeholder="0" @change="handleInput(item.name)"/>
                   </template>
                 </el-card>
               </el-col>
@@ -94,8 +95,8 @@
     </el-container>
   </template>
   
-  <script lang="ts" setup>
-  import { ref, onBeforeMount } from 'vue'
+<script lang="ts" setup>
+  import { ref, onBeforeMount, onBeforeUnmount } from 'vue'
   import { shoppingdata } from '@/assets/shoppingdata'
   import { Search } from '@element-plus/icons-vue'
   import { shoppingCar } from '../assets/shoppingCar'
@@ -106,26 +107,65 @@
   const car = ref()
   let data = ref(shoppingdata.value)
   const input = ref('')
+  const num = ref({})
   
+  function handleInput(item){
+    const list = shoppingdata.value.filter(i => i.name === item)
+    const list2 = car.value.car.filter(i => i.name === item)
+    if( list2.length == 0) {
+      let temp = {
+        "name": item,
+        "num": num.value[item],
+        "price": (list[0].price * num.value[item]).toFixed(2)
+      }
+      car.value.car.push(temp)
+    }
+    else{
+      list2[0].num = num.value[item]
+      list2[0].price = (list[0].price * num.value[item]).toFixed(2)
+    }
+    console.log(car.value.car)
+  }
+  function searchGoods(){
+    data.value = shoppingdata.value.filter(item => item.name.includes(input.value))
+    input.value = ''
+  }
+
   function createShoppingCar(){
-    console.log("createShoppingCar")
     for(let i = 0; i < shoppingCar.value.length; i++){
       if(shoppingCar.value[i].name == cookies.get('user')){
         car.value = shoppingCar.value[i]
+        for(let j = 0; j < car.value.car.length; j++){
+          num.value[car.value.car[j].name] = car.value.car[j].num
+        }
         return
       }
     }
     car.value = {
         "name": cookies.get('user'),
-        "car": new Array(data.value.length).fill(0)
+        "car" : []
     }
-    console.log(car.value)
+    num.value = {}
     shoppingCar.value.push(car.value)
   }
 
+  function delZero(){
+    console.log("func delZero")
+    for(let key in car.value.car){
+      if(car.value.car[key] == 0){
+        delete car.value.car[key]
+      }
+    }
+  }
+
+  onBeforeUnmount(() => {
+    delZero()
+    console.log(num.value)
+  })
+
   onBeforeMount(() => {
     createShoppingCar()
-    console.log(shoppingCar.value)
+    console.log(num.value)
   })
 
   function myfilter(value, key){
@@ -174,9 +214,9 @@
     }
   }
   
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
 
   .mx-1{
     font-size: 50px;
@@ -224,4 +264,4 @@
     padding: 0;
   }
 
-  </style>
+</style>
