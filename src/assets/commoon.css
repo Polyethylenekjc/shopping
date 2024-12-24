@@ -1,0 +1,31 @@
+div,body,h1,h2,h3,ul,li,p,button{
+    padding: 0px;
+    margin: 0px;
+}
+
+div{
+    display: block;
+    unicode-bidi: isolate;
+}
+
+ol, ul, li {
+    list-style: none;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+body {
+    color: rgb(85, 85, 85);
+    font-size: 14px;
+    font-family: 微软雅黑, Verdana, Arial, Helvetica, sans-serif;
+    background: rgb(255, 255, 255);
+}

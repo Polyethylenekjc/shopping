@@ -1,0 +1,155 @@
+div.content {
+    width: 300px;
+    border: 2px solid #E7E7E7;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    box-shadow: 0px 16px 48px 0px rgba(23,139,249,0.12);
+    height: 738px;
+    width: 1255px;
+    display: flex;
+    margin-top: 0px;
+}
+
+div .content .left {
+    width: 571px;
+    height: 100%;
+    background: #FAFAFA;
+    opacity: 0.8;
+    background-position: 0% 50%;
+    background-image: url("https://uis.shou.edu.cn/cas/file/png/bg.png");
+}
+
+div .content .center {
+    width: 579px;
+    height: 100%;
+    position: relative;
+    margin-left: 105px;
+    background-color: #FFFFFF;
+}
+
+
+.content .center h3 {
+    font-size: 32px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-weight: 500;
+    color: #093157;
+    line-height: 38px;
+    margin-top: 74px;
+    margin-bottom: 32px;
+}
+
+.content .login-area {
+    width: 360px;
+    height: 435px;
+    position: absolute;
+}
+
+.content .login-area .tab {
+    width: 430px;
+    height: 63px;
+    margin: 0 auto;
+    border-bottom: 2px solid #EEEEEE;
+}
+
+.content .login-area .tab li.active {
+    color: #706CE8;
+}
+
+.content .login-area .tab li.active button {
+    color: #706CE8;
+    padding-right: 30px;
+    border-bottom: 2px solid #706CE8;
+}
+
+.content .login-area .tab li.noactive button{
+    background: linear-gradient(to right, #706CE8, #706CE8) no-repeat right bottom;
+    background-size: 0 2px;
+    transition: background-size 1000ms;
+    padding-right: 30px;
+}
+
+.content .login-area .tab li button:hover{
+    background-position-x: left;
+    background-size: 100% 2px;
+    padding-right: 30px;
+}
+
+.content .login-area .tab li {
+    float: left;
+    width: 50%;
+    line-height: 63px;
+    text-align: left;
+    font-size: 24px;
+    color: #333333;
+}
+
+.content .login-area .tab li button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    line-height: 63px;
+    text-align: left;
+    font-size: 24px;
+    color: #333333;
+}
+
+.content .login-area .tab-con {
+    margin-top: 48px;
+}
+
+.content .login-area .tab-con .inp {
+    height: 80px;
+    position: relative;
+}
+
+.content .login-area .tab-con .inp:first-child {
+    margin-bottom: 16px;
+}
+
+.content .login-area .tab-con .item:first-child p {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 12px;
+    font-weight: 500;
+    color: #666666;
+    line-height: 19px;
+}
+
+.item input {
+    width: 430px;
+    height: 48px;
+    border: 1px solid #D9DDE1;
+    border-radius: 2px;
+    text-indent: 16px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    font-family: microsoft yahei;
+}
+
+.login_button button {
+    margin-top: 48px;
+    width: 430px;
+    height: 48px;
+    background-color: #4d77ff;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 5px;
+    color: #FFFFFF;
+    font-size: 20px;
+    border: none;
+    transition:background-color 1s;
+}
+
+.login_button button:hover {
+    background-color: #238636;
+}
+
+.Welcome {
+    margin-top: 32px;
+    font-size: 14px;
+    color: #999999;
+}
