@@ -18,9 +18,23 @@
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column fixed type="selection" width="80" />
-                    <el-table-column prop="name" label="品名" width="200" />
-                    <el-table-column prop="num" label="数量" width="200" />
-                    <el-table-column prop="price" label="价格" width="200" />
+                    <el-table-column prop="name" label="品名" width="150" />
+                    <el-table-column prop="num" label="数量" width="150" />
+                    <el-table-column prop="price" label="价格" width="150" />
+                    <el-table-column label="选项" width="150">
+                    <template #default="scope">
+                        <el-button size="small" @click="handleEdit(scope.$index, scope.row)" ref="buttonRef">
+                            Edit
+                        </el-button>
+                        <el-button
+                            size="small"
+                            type="danger"
+                            @click="handleDelete(scope.$index, scope.row)"
+                        >
+                            Delete
+                        </el-button>
+                    </template>
+                    </el-table-column>
                 </el-table>
             </div>
         </el-main>
@@ -53,7 +67,25 @@
     const selectData = ref([])
     const car = ref()
     
-    
+    function handleDelete(index, row) {
+        car.value.car = car.value.car.filter(i => i.name !== row.name)
+    }
+
+    function handleEdit(index, row) {
+        console.log(index, row)
+        var n = prompt("请输入更改数量")
+        while(isNaN(n)||n<0){
+            n = prompt("输入非法数字,请重新输入")
+        }
+        if(n == null)
+            return
+        if(n == 0){
+            car.value.car = car.value.car.filter(i => i.name !== row.name)
+            return
+        }
+        row.num = n
+        row.price = (row.num * shoppingdata.value.filter(i => i.name === row.name)[0].price).toFixed(2)
+    }
     function handleSelectionChange(selection) {
     selectData.value = selection.map(item => item)
     }

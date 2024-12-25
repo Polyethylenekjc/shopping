@@ -12,13 +12,13 @@
           Fifth的购物平台
         </el-text>
       </el-menu-item>
-      <el-menu-item index="/shopping" >购物</el-menu-item>
-      <el-menu-item index="shoppingCar">购物车</el-menu-item>
-      <el-menu-item index="login">注册登录</el-menu-item>
+      <el-menu-item index="/shopping" ><el-icon><WalletFilled /></el-icon>购物</el-menu-item>
+      <el-menu-item index="shoppingCar"><el-icon><ShoppingCart /></el-icon>购物车</el-menu-item>
+      <el-menu-item index="login"><el-icon><Finished /></el-icon>注册登录</el-menu-item>
       <el-sub-menu index="User">
-        <template #title>个人</template>
-        <el-menu-item index="UserPage">个人主页</el-menu-item>
-        <el-menu-item index="logout">登出</el-menu-item>
+        <template #title><el-icon><User /></el-icon>个人</template>
+        <el-menu-item index="UserPage"><el-icon><Edit /></el-icon>个人主页</el-menu-item>
+        <el-menu-item index="logout"><el-icon><TurnOff /></el-icon>登出</el-menu-item>
       </el-sub-menu> 
     </el-menu>
   </template>
