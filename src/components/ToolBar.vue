@@ -7,14 +7,13 @@
       @select="handleSelect"
     >
       <el-menu-item index="0" style="margin-right: auto;">
-        <img
-          style="width: 100px"
-          src="https://element-plus.org/images/element-plus-logo.svg"
-          alt="Element logo"
-        />
+        <el-text>
+          <el-icon><ShoppingCartFull /></el-icon>
+          Fifth的购物平台
+        </el-text>
       </el-menu-item>
-      <el-menu-item index="shoppingCar">购物车</el-menu-item>
       <el-menu-item index="/shopping" >购物</el-menu-item>
+      <el-menu-item index="shoppingCar">购物车</el-menu-item>
       <el-menu-item index="login">注册登录</el-menu-item>
       <el-sub-menu index="User">
         <template #title>个人</template>

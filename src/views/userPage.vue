@@ -1,29 +1,33 @@
 <template>
 
-<el-row :gutter="20" >
-    <el-col :span="4" v-for="item in shoppingdata" align="center" class="layout-card">
-    <el-card :body-style="{ padding: '0px',height: '240px',}" style="border-radius: 15px;font-size: 16px;">
-        <template #header>{{ item.name }}</template>
-        <img :src="item.pic" class="image" style="height: 240px;width: 240px;"/>
-        <template #footer>
-        {{ item.price }}元<br>
-        <el-input-number class="number" v-model="item.number" size="small" />
-        </template>
-    </el-card>
-    </el-col>
-</el-row>
+    <div class="content">
+        <el-text style="font-size: 80px;">
+            Fifth
+        </el-text><br>
+        <el-text style="font-size: 18px;">
+            你好 {{ cookies.get('user') }}, 欢迎来到个人主页<br>
+            很高兴在这里遇到你<br>
+            这个项目总时长约为4天<br>
+            <el-link style="font-size: 18px;" type="success" href="https://github.com/Polyethylenekjc/shopping">git仓库地址</el-link><br>
+            祝你我都能开开心心每一天！
+        </el-text>
+    </div>
 </template>
 
 <script setup>
 
-import { shoppingdata } from '@/assets/shoppingdata';
-
+    import { useCookies } from 'vue3-cookies';
+    const { cookies } = useCookies();
 </script>
 
 <style scoped>
-    p{
-        position: absolute;
-        top: 50%;
+    .content {
         left: 50%;
+        top: 40%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        letter-spacing: 2px; 
+        line-height: 2;
     }
 </style>

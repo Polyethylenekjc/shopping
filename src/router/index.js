@@ -50,9 +50,21 @@ const router = createRouter({
       redirect: '/shoppingApi',
     },
     {
-      path: '/shoppingCar',
+      path: '/shoppingCarApi',
       name: 'shoppingCar',
-      component: () => import('@/components/shoppingCar.vue'),
+      beforeEnter: (to, from) => {
+        if (!cookies.isKey("user")) {
+          alert("请先登录")
+          return { name: 'login'}
+        }
+        else{
+          return { path: '/shoppingCar' }
+        }
+      }
+    },
+    {
+      path: '/shoppingCar',
+      component: () => import('@/views/shoppingCar.vue'),
     }
   ],
 })

@@ -18,7 +18,7 @@ div .content .left {
     background: #FAFAFA;
     opacity: 0.8;
     background-position: 0% 50%;
-    background-image: url("https://uis.shou.edu.cn/cas/file/png/bg.png");
+    background-image: url("@/assets/lgo.png");
 }
 
 div .content .center {
