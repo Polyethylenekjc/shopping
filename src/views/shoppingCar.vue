@@ -24,14 +24,14 @@
                     <el-table-column label="选项" width="150">
                     <template #default="scope">
                         <el-button size="small" @click="handleEdit(scope.$index, scope.row)" ref="buttonRef">
-                            Edit
+                            修改
                         </el-button>
                         <el-button
                             size="small"
                             type="danger"
                             @click="handleDelete(scope.$index, scope.row)"
                         >
-                            Delete
+                            删除
                         </el-button>
                     </template>
                     </el-table-column>

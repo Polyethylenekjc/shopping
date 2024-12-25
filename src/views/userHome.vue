@@ -5,7 +5,7 @@
             Fifth
         </el-text><br>
         <el-text style="font-size: 18px;">
-            你好 {{ cookies.get('user') }}, 欢迎来到个人主页<br>
+            你好{{ cookies.get('user') }}, 欢迎来到个人主页<br>
             很高兴在这里遇到你<br>
             这个项目总时长约为4天<br>
             <el-link style="font-size: 18px;" type="success" href="https://github.com/Polyethylenekjc/shopping">git仓库地址</el-link><br>

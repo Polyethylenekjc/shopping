@@ -48,7 +48,7 @@
     }
     if (key == "UserPage") {
       router.push({
-        name : 'user',
+        name : 'userApi',
         replace: true,
       })
     }

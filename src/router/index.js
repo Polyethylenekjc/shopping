@@ -13,14 +13,14 @@ const router = createRouter({
     },
     {
       path: '/userPageApi',
-      name: 'user',
+      name: 'userApi',
       beforeEnter: (to, from) => {
         if (!cookies.isKey("user")) {
           alert("请先登录")
           return { name: 'login'}
         }
         else{
-          return { path: '/userPage' }
+          return { path: '/userHome' }
         }
       }
     },
@@ -38,16 +38,16 @@ const router = createRouter({
       }
     },
     {
-      path: '/userPage',
-      component: () => import('../views/userPage.vue'),
+      path: '/userHome',
+      component: () => import('@/views/userHome.vue'),
+    },
+    {
+      path: '/',
+      redirect: '/userHome',
     },
     {
       path: '/shopping',
-      component: () => import('../views/shopping.vue'),
-    },
-    {
-      path : '/',
-      redirect: '/shoppingApi',
+      component: () => import('@/views/shopping.vue'),
     },
     {
       path: '/shoppingCarApi',
@@ -65,7 +65,8 @@ const router = createRouter({
     {
       path: '/shoppingCar',
       component: () => import('@/views/shoppingCar.vue'),
-    }
+    },
+    { path: "/:catchAll(.*)", redirect: "/login" }
   ],
 })
 
