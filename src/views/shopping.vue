@@ -82,7 +82,7 @@
                   <template #header>{{ item.name }}</template>
                   <img :src="item.pic" class="image" style="height: 240px;width: 240px;"/>
                   <template #footer>
-                    {{ item.price }}元<br>
+                    {{ item.price.toFixed(2) }}元<br>
                     <el-input-number class="number" v-model="num[item.name]" size="small" :min="0" placeholder="0" @change="handleInput(item.name)"/>
                   </template>
                 </el-card>
