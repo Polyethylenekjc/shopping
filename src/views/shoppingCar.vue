@@ -12,7 +12,8 @@
             <div style="padding-left: calc(50% - 340px);">
                 <el-table 
                     :data="car.car" 
-                    style="width: 680px;height: 650px;"
+                    style="width: 680px"
+                    max-height="640"
                     show-summary
                     :summary-method="getSummaries"
                     @selection-change="handleSelectionChange"
