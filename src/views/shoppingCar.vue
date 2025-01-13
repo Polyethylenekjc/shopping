@@ -9,30 +9,60 @@
         </el-text>
       </el-header>
         <el-main>
-            <div style="padding-left: calc(50% - 340px);">
+            <div style="padding-left: calc(50% - 400px);">
                 <el-table 
                     :data="car.car" 
-                    style="width: 680px"
+                    style="width: 800px"
                     max-height="640"
                     show-summary
                     :summary-method="getSummaries"
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column fixed type="selection" width="80" />
+                    <el-table-column prop="pic" label="图片" width="120">
+                        <template #default="scope">
+                            <el-image
+                                style="width: 100px; height: 100px"
+                                :src="scope.row.pic"
+                                fit="fill"
+                            />
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="name" label="品名" width="150" />
-                    <el-table-column prop="num" label="数量" width="150" />
+                    <el-table-column prop="num" label="数量" width="150">
+                        <template #default="scope">
+                            <el-input-number 
+                                v-model="scope.row.num" 
+                                :min="0" 
+                                placeholder="0" 
+                                controls-position="right"
+                                @change="chagePrice(scope.row)"
+                                style="width: 100px;"
+                            >
+                            <template #decrease-icon>
+                                <el-icon>
+                                    <ArrowDown />
+                                </el-icon>
+                                </template>
+                                <template #increase-icon>
+                                <el-icon>
+                                    <ArrowUp />
+                                </el-icon>
+                            </template>
+                            </el-input-number>
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="price" label="价格" width="150" />
                     <el-table-column label="选项" width="150">
                     <template #default="scope">
-                        <el-button size="small" @click="handleEdit(scope.$index, scope.row)" ref="buttonRef">
-                            修改
-                        </el-button>
                         <el-button
                             size="small"
                             type="danger"
                             @click="handleDelete(scope.$index, scope.row)"
                         >
-                            删除
+                            <el-icon :size="15">
+                                <Delete />
+                            </el-icon>
                         </el-button>
                     </template>
                     </el-table-column>
@@ -46,7 +76,7 @@
 <style scoped>
     .common-layout{
         margin-top: 200px;
-        width: 800px;
+        width: 1000px;
         position: absolute;
         height: 800px;
         top: 30%;
@@ -68,25 +98,18 @@
     const selectData = ref([])
     const car = ref()
     
+    function chagePrice(row){
+        if(row.num == 0){
+            car.value.car = car.value.car.filter(i => i.name !== row.name)
+            return
+        }
+        row.price = (row.num * shoppingdata.value.filter(i => i.name === row.name)[0].price).toFixed(2)
+    }
+
     function handleDelete(index, row) {
         car.value.car = car.value.car.filter(i => i.name !== row.name)
     }
 
-    function handleEdit(index, row) {
-        console.log(index, row)
-        var n = prompt("请输入更改数量")
-        while(isNaN(n)||n<0){
-            n = prompt("输入非法数字,请重新输入")
-        }
-        if(n == null)
-            return
-        if(n == 0){
-            car.value.car = car.value.car.filter(i => i.name !== row.name)
-            return
-        }
-        row.num = n
-        row.price = (row.num * shoppingdata.value.filter(i => i.name === row.name)[0].price).toFixed(2)
-    }
     function handleSelectionChange(selection) {
     selectData.value = selection.map(item => item)
     }
@@ -120,11 +143,11 @@
                         return prev;
                     }
                 }, 0);
-                if(index === 3){
+                if(index === 4){
                     sums[index] = sums[index].toFixed(2);
                     sums[index] += ' 元';
                 }
-                if(index === 2){
+                if(index === 3){
                     sums[index] += ' 件';
                 } 
             }

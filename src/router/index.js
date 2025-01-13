@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: '/shoppingApi',
       name: 'shopping',
-      beforeEnter: (to, from) => {
+          beforeEnter: (to, from) => {
         if (!cookies.isKey("user")) {
           alert("请先登录")
           return { name: 'login'}

@@ -63,11 +63,13 @@
   
       <el-container>
         <el-header style="text-align: center; font-size: 12px; height: 160px">
-          <el-text class="mx-1" size="large">购物平台</el-text><br>
+          <el-text class="mx-1" size="large">
+            每日新鲜
+          </el-text><br>
           <el-input
             v-model="input"
             size="large"
-            placeholder="Please Input"
+            placeholder="请输入要搜索的商品..."
             :suffix-icon="Search"
             class = "search"
             @keyup.enter="searchGoods()"
@@ -80,7 +82,7 @@
               <el-col :span="4"  align="center" class="layout-card" v-for="item in data" :key="item.id" >
                 <el-card :body-style="{ padding: '0px',height: '240px',}" style="border-radius: 15px;font-size: 16px;">
                   <template #header>{{ item.name }}</template>
-                  <img :src="item.pic" class="image" style="height: 240px;width: 240px;"/>
+                    <img :src="item.pic" class="image" style="height: 240px;width: 240px;" @click="dialog(item)"/>
                   <template #footer>
                     {{ item.price.toFixed(2) }}元<br>
                     <el-input-number class="number" v-model="num[item.name]" size="small" :min="0" placeholder="0" @change="handleInput(item.name)"/>
@@ -93,6 +95,40 @@
       </el-container>
       
     </el-container>
+  
+    <el-dialog
+      v-model="dialogVisible"
+      title="商品详情"
+      width="50%">
+      <el-descriptions border>
+        <el-descriptions-item
+        :rowspan="2"
+        :width="140"
+        label="商品图片"
+        align="center"
+        >
+          <el-image
+            style="width: 240px; height: 240px"
+            :src="dialogItem.pic"
+            :preview-src-list="[dialogItem.pic]"
+          />
+        </el-descriptions-item>
+        <el-descriptions-item label="商品名称">{{ dialogItem.name }}</el-descriptions-item>
+        <el-descriptions-item label="商品价格">{{ dialogItem.price.toFixed(2) }}元</el-descriptions-item>
+        <el-descriptions-item label="商品标签" span="2">
+          <el-tag class="tag" size="small" v-for="tag in dialogItem.tag">
+            {{ tag }}
+          </el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item label="商品简介" label-align="center" align="center">
+          <div style="height: 200px">
+            <el-text>
+              这是一个{{ dialogItem.name }}，它的价格是{{ dialogItem.price.toFixed(2) }}元，每日新鲜，精挑细选，三小时送达！
+            </el-text>
+          </div>
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-dialog>
   </template>
   
 <script lang="ts" setup>
@@ -102,6 +138,8 @@
   import { shoppingCar } from '../assets/shoppingCar'
   import { useCookies } from 'vue3-cookies';
 
+  const dialogVisible = ref(false)
+  const dialogItem = ref()
   const { cookies } = useCookies();
 
   const car = ref()
@@ -109,6 +147,12 @@
   const input = ref('')
   const num = ref({})
   
+  function dialog(item){
+    dialogItem.value = item
+    dialogVisible.value = true
+    console.log(dialogItem.value)
+  }
+
   function handleInput(item){
     const list = shoppingdata.value.filter(i => i.name === item)
     const list2 = car.value.car.filter(i => i.name === item)
@@ -116,7 +160,8 @@
       let temp = {
         "name": item,
         "num": num.value[item],
-        "price": (list[0].price * num.value[item]).toFixed(2)
+        "price": (list[0].price * num.value[item]).toFixed(2),
+        "pic": list[0].pic
       }
       car.value.car.push(temp)
     }
@@ -126,6 +171,7 @@
     }
     console.log(car.value.car)
   }
+  
   function searchGoods(){
     data.value = shoppingdata.value.filter(item => item.name.includes(input.value))
     input.value = ''
@@ -218,8 +264,12 @@
   
 <style scoped>
 
+  .tag{
+    margin-right: 5px;
+  }
+
   .mx-1{
-    font-size: 50px;
+    font-size: 40px;
     margin-bottom: 10px;
   }
 
@@ -239,8 +289,8 @@
     margin-top: 15px;
   }
 
-  .layout-main{
-    margin-left: 20px;
+  .el-aside{
+    margin-right: 20px;
   }
 
   .layout-card{

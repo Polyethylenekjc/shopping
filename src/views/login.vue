@@ -71,7 +71,7 @@ function checkAndjump() {
         cookies.set('user', username.value, '1h')
         console.log(cookies.get('user'))
         router.push({
-            path: '/shopping',
+            name: 'shopping',
             replace: true,
         })
     }
